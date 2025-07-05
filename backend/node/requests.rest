@@ -1,0 +1,44 @@
+POST http://localhost:8080/api/register
+Content-Type: application/json
+
+{
+    "firstName": "Navya",
+    "email": "navyajain170104@gmail.com",
+    "password": "123"
+}
+
+###
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+    "email": "navyajain170104@gmail.com",
+    "password": "123"
+}
+
+###
+POST http://localhost:8080/api/refresh
+
+###
+POST http://localhost:8080/api/logout
+
+###
+POST http://localhost:8080/api/predict
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODY1NmMyMDBkYjA4ZDMyY2U1NjU2YzkiLCJpYXQiOjE3NTE3MzU4NDcsImV4cCI6MTc1MTczNjc0N30.0vt3gkpOs9epQ-bKzt2YlXq_BJBFI50mRszGxChfWR4
+
+{
+    "api_url": "https://ecommerce-kto7.onrender.com/products"
+}
+
+###
+GET http://localhost:8080/api/history
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODY1NmMyMDBkYjA4ZDMyY2U1NjU2YzkiLCJpYXQiOjE3NTE3MjcyMTMsImV4cCI6MTc1MTcyODExM30.V6prCy7hNuuepg-bTfrZ14URwVxDfBlmMi7WJ_vm-iI
+
+###
+POST http://127.0.0.1:5000/predict
+Content-Type: application/json
+
+{
+    "api_url": "https://ecommerce-kto7.onrender.com/products"
+}
