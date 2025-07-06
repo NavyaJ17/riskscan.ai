@@ -52,7 +52,7 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen min-w-screen sm:min-h-auto sm:border sm:p-10 sm:rounded-2xl sm:min-w-2xl p-4 bg-gray-950 flex items-center justify-center text outline outline-white/10">
+    <div className="min-h-screen min-w-screen sm:min-h-auto sm:border sm:p-10 sm:rounded-2xl sm:min-w-2xl p-4 bg-gray-950 flex items-center justify-center outline outline-white/10">
       <div className="flex flex-col justify-center items-center w-full">
         <Link to={"/"}>
           <div className="flex flex-col text-white items-center gap-2 text-xl font-bold font-outfit mb-10">

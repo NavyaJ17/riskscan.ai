@@ -25,7 +25,7 @@ POST http://localhost:8080/api/logout
 ###
 POST http://localhost:8080/api/predict
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODY1NmMyMDBkYjA4ZDMyY2U1NjU2YzkiLCJpYXQiOjE3NTE3MzU4NDcsImV4cCI6MTc1MTczNjc0N30.0vt3gkpOs9epQ-bKzt2YlXq_BJBFI50mRszGxChfWR4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODY1NmMyMDBkYjA4ZDMyY2U1NjU2YzkiLCJpYXQiOjE3NTE3OTExNDksImV4cCI6MTc1MTc5MjA0OX0.yoQEnD1TNye1CoCYLi0fVXv3bWXxJC0UN2MQ1FbQwT0
 
 {
     "api_url": "https://ecommerce-kto7.onrender.com/products"
