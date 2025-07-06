@@ -50,7 +50,7 @@ export const register = async (req, res, next) => {
       // secure: true
     });
 
-    const { _id, firstName, lastName } = user._doc;
+    const { _id} = user._doc;
 
     return res.status(201).json({
       success: true,
