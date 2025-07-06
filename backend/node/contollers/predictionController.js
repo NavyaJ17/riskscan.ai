@@ -1,11 +1,12 @@
 import axios from "axios";
 import userModel from "../models/userModel.js";
+import "dotenv/config";
 
 export const getPrediction = async (req, res, next) => {
-  const { api_url} = req.body;
+  const { api_url } = req.body;
   try {
-    const response = await axios.post("http://127.0.0.1:5000/predict", {
-      api_url
+    const response = await axios.post(`${process.env.PYTHON_URL}/predict`, {
+      api_url,
     });
 
     const { stats, prediction } = response.data;
@@ -35,10 +36,10 @@ export const getPrediction = async (req, res, next) => {
 };
 
 export const demo = async (req, res, next) => {
-  const { api_url} = req.body;
+  const { api_url } = req.body;
   try {
-    const response = await axios.post("http://127.0.0.1:5000/predict", {
-      api_url
+    const response = await axios.post(`${process.env.PYTHON_URL}/predict`, {
+      api_url,
     });
 
     const { stats, prediction } = response.data;
@@ -46,7 +47,7 @@ export const demo = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       stats,
-      prediction,
+      prediction: prediction[0],
     });
   } catch (error) {
     next(error);

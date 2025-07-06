@@ -70,7 +70,7 @@ Connection: close
       responseString += `Date: ${res.headers["date"]}\n`;
       responseString += `Connection: ${res.headers["connection"]}\n\n`;
 
-      responseString += JSON.stringify(res.data, null, 2);
+      responseString += JSON.stringify(res.data, null, 4);
       setRes(responseString);
       setLoading(false);
     } catch (error) {
@@ -110,7 +110,7 @@ Connection: close
         <div className=" bg-gray-950">
           <div className="flex flex-col sm:flex-row bg-white/10 outline outline-white/10 p-2 gap-2">
             <div className="rounded-2xl bg-gray-950 flex-1 p-6 lg:p-8 flex flex-col items-center outline outline-white/10">
-              <i className="bi bi-stopwatch text-gray-400 text-5xl"></i>
+              <i className="bi bi-stopwatch text-gray-400 text-6xl"></i>
               <h1 className="text-white font-semibold text-xl @md:text-2xl text-center mt-6 mb-2 font-outfit">
                 Real-time Scanning
               </h1>
@@ -120,7 +120,7 @@ Connection: close
               </p>
             </div>
             <div className="rounded-2xl bg-gray-950 flex-1 p-6 lg:p-8 outline outline-white/10 flex flex-col items-center">
-              <i className="bi bi-clipboard-data text-gray-400 text-5xl"></i>
+              <i className="bi bi-clipboard-data text-gray-400 text-6xl"></i>
               <h1 className="text-white font-semibold text-xl @md:text-2xl text-center mt-6 mb-2 font-outfit">
                 AI Risk Assessment
               </h1>
@@ -130,7 +130,7 @@ Connection: close
               </p>
             </div>
             <div className="rounded-2xl bg-gray-950 flex-1 p-6 lg:p-8 outline outline-white/10 flex flex-col items-center">
-              <i className="bi bi-braces-asterisk text-gray-400 text-5xl"></i>
+              <i className="bi bi-braces-asterisk text-gray-400 text-6xl"></i>
               <h1 className="text-white font-semibold text-xl @md:text-2xl text-center mt-6 mb-2 font-outfit">
                 Interactive Demo Scan
               </h1>
@@ -143,19 +143,19 @@ Connection: close
         </div>
         <div className="flex flex-col lg:flex-row max-w-full max-h-lg">
           <div className="p-2 outline outline-white/10 bg-white/10 min-w-1/2 ">
-            <div className="p-2 bg-gray-950 rounded-2xl">
+            <div className="p-2 bg-gray-950 rounded-2xl outline outline-white/10">
               <div className="flex flex-col lg:flex-row justify-center gap-6 p-6 lg:gap-8 lg:p-8">
                 <i class="bi bi-upc-scan text-6xl text-white/50"></i>
                 <div className="flex flex-col">
                   <p className="text-xs text-pink-500 font-medium">
                     TRY IT YOURSELF!
                   </p>
-                  <h1 className="text-white font-outfit text-xl/10 md:text-2xl/10 font-medium">
+                  <h1 className="text-white font-outfit text-xl/10 md:text-2xl/10 font-semibold">
                     Try out a Demo Scan
                   </h1>
                   <p className="text-sm/6 text-gray-400 font-monospace font-medium">
                     Enter a sample public API URL to see how it all works in
-                    action.
+                    action on a single endpoint.
                   </p>
                   <form onSubmit={handleSubmit}>
                     <div
@@ -236,7 +236,7 @@ Content-Type: application/json
             </div>
           </div>
           <div className="p-2 outline outline-white/10 bg-white/10 lg:max-w-1/2">
-            <div className="p-2 bg-gray-950 rounded-2xl max-h-full">
+            <div className="p-2 bg-gray-950 outline outline-white/10 rounded-2xl max-h-full">
               <div className="background-2 bg-fixed pt-4 pl-4 sm:pl-8 sm:pt-8 rounded-2xl pr-0 outline outline-white/10 max-h-full">
                 <div className="bg-gray-950 pl-2 pt-1 rounded-tl-2xl border border-white/10 border-r-0 border-b-0 max-h-full">
                   <div className="p-2 flex flex-row gap-2">
@@ -267,15 +267,7 @@ Content-Type: application/json
           </div>
         </div>
       </div>
-      {/* <div
-        id="demo"
-        className="flex flex-col sm:flex-row justify-between gap-20  px-2 max-sm:px-4"
-      >
-        <div className="">
-          <div className="text-4xl text-gray-500"> Try a demo scan</div>
-        </div> */}
     </div>
-    // </div>
   );
 }
 
