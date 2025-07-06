@@ -22,22 +22,22 @@ Date: Sun, 06 Jul 2025 08:40:10 GMT
 Connection: close
 
 {
-  "success": true,
-  "stats": {
-    "average_risk_category": "Low",
-    "mean_risk_score": 1.3437745571136475,
-    "total_endpoints": 23
-  },
-  "prediction": [
-    {
-      "alertname": "CSP: Failure to Define Directive with No Fallback",
-      "desc": "<p>The Content Security Policy fails to define one of the directives that has no fallback. Missing/excluding them is the same as allowing anything.</p>",
-      "endpoint": "https://ecommerce-kto7.onrender.com/",
-      "method": "GET",
-      "predicted_risk_score": 1.1719257831573486,
-      "risk_category": "Low",
-      "solution": "<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>"
-    },...
+    "success": true,
+    "stats": {
+        "average_risk_category": "Low",
+        "mean_risk_score": 1.3437745571136475,
+        "total_endpoints": 23
+    },
+    "prediction": [
+        {
+            "alertname": "CSP: Failure to Define Directive with No Fallback",
+            "desc": "<p>The Content Security Policy fails to define one of the directives that has no fallback. Missing/excluding them is the same as allowing anything.</p>",
+            "endpoint": "https://ecommerce-kto7.onrender.com/",
+            "method": "GET",
+            "predicted_risk_score": 1.1719257831573486,
+            "risk_category": "Low",
+            "solution": "<p>Ensure that your web server, application server, load balancer, etc. is properly configured to set the Content-Security-Policy header.</p>"
+        }
 }`);
 
   function validateUrl(value) {
@@ -210,7 +210,7 @@ Connection: close
                     <span className="size-3 rounded-full bg-white/20"></span>
                   </div>
                   <SyntaxHighlighter
-                    language="javascript"
+                    language="http"
                     style={gruvboxDark}
                     showLineNumbers
                     customStyle={{
@@ -245,7 +245,7 @@ Content-Type: application/json
                     <span className="size-3 rounded-full bg-white/20"></span>
                   </div>
                   <SyntaxHighlighter
-                    language="javascript"
+                    language="http"
                     style={gruvboxDark}
                     showLineNumbers
                     customStyle={{
