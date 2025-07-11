@@ -50,7 +50,7 @@ export const register = async (req, res, next) => {
       // secure: true
     });
 
-    const { _id} = user._doc;
+    const { _id } = user._doc;
 
     return res.status(201).json({
       success: true,
@@ -133,9 +133,13 @@ export const refresh = (req, res, next) => {
           // secure: true
         });
 
-        return res
-          .status(200)
-          .json({ success: true, accessToken: newAccessToken });
+        const { _id, firstName, lastName, email } = user._doc;
+
+        return res.status(200).json({
+          success: true,
+          user: { _id, firstName, lastName, email },
+          accessToken: newAccessToken,
+        });
       } catch (err) {
         next(err);
       }

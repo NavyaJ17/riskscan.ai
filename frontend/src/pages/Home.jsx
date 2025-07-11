@@ -145,7 +145,7 @@ Connection: close
           <div className="p-2 outline outline-white/10 bg-white/10 min-w-1/2 ">
             <div className="p-2 bg-gray-950 rounded-2xl outline outline-white/10">
               <div className="flex flex-col lg:flex-row justify-center gap-6 p-6 lg:gap-8 lg:p-8">
-                <i class="bi bi-upc-scan text-6xl text-white/50"></i>
+                <i className="bi bi-upc-scan text-6xl text-white/50"></i>
                 <div className="flex flex-col">
                   <p className="text-xs text-pink-500 font-medium">
                     TRY IT YOURSELF!
@@ -188,7 +188,7 @@ Connection: close
                         {loading ? (
                           <ClipLoader color="white" size={14} />
                         ) : (
-                          <i class="bi bi-send"></i>
+                          <i className="bi bi-send"></i>
                         )}
                       </button>
                     </div>

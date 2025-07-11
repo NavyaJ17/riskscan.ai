@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
@@ -6,9 +6,11 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
-  const { isLoggedIn, setIsLoggedIn, setUserData, setAccessToken } =
+  const { isLoggedIn, setIsLoggedIn, userData, setUserData, setAccessToken } =
     useContext(AppContext);
   const [loading, setLoading] = useState(false);
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const dropDownRef = useRef(null);
   const navigate = useNavigate();
 
   async function handleClick() {
@@ -26,6 +28,23 @@ function Navbar() {
       setLoading(false);
     }
   }
+
+  function toggleDropdown() {
+    setIsDropDownOpen((prev) => !prev);
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
+        setIsDropDownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="bg-gray-950 flex flex-row items-center justify-between fixed z-10 top-0 left-0 min-w-screen px-4 lg:px-8 py-2 outline outline-white/10">
@@ -51,14 +70,51 @@ function Navbar() {
           riskscan.ai
         </div>
       </Link>
+      {console.log(userData)}
       {isLoggedIn ? (
-        <button
-          onClick={handleClick}
-          className="bg-gray-700 text-white text-sm font-semibold py-2 px-4 rounded-full cursor-pointer hover:bg-gray-600 disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed"
-          disabled={loading}
-        >
-          {loading ? <ClipLoader color="white" size={15} /> : "Logout"}
-        </button>
+        <div ref={dropDownRef} className="relative ">
+          <div
+            className="w-10 h-10 bg-gray-700 font-medium rounded-full p-4 flex items-center justify-center text-white cursor-pointer hover:bg-gray-600"
+            onClick={toggleDropdown}
+          >
+            {userData.firstName[0]}
+          </div>
+
+          <div
+            className={`absolute top-10 right-0 flex flex-col gap-2 bg-gray-950  p-4 rounded-2xl outline outline-white/10 items-start transition-all duration-200 ease-out ${
+              isDropDownOpen
+                ? "opacity-100 scale-100"
+                : "opacity-0 scale-97 pointer-events-none"
+            }`}
+          >
+            <div className="flex flex-row gap-4">
+              <i className="bi bi-person-circle text-base text-gray-400"></i>
+              <p className="text-base text-gray-400 font-monospace">
+                {userData.firstName} {userData.lastName}
+              </p>
+            </div>
+            <div className="flex flex-row gap-4">
+              <i className="bi bi-envelope text-base text-gray-400"></i>
+              <p className="text-base text-gray-400 font-monospace">
+                {userData.email}{" "}
+              </p>
+            </div>
+            <div className="w-full mt-4 flex flex-col gap-2">
+              <Link to={`/${userData._id}`}>
+                <button className="w-full bg-white/5 border border-white/15 text-white text-sm font-semibold py-2 px-4 rounded-full cursor-pointer hover:bg-white/10 disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed">
+                  New Scan
+                </button>
+              </Link>
+              <button
+                onClick={handleClick}
+                className="bg-gray-700 w-full text-white text-sm font-semibold py-2 px-4 rounded-full cursor-pointer hover:bg-gray-600 disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed"
+                disabled={loading}
+              >
+                {loading ? <ClipLoader color="white" size={15} /> : "Logout"}
+              </button>
+            </div>
+          </div>
+        </div>
       ) : (
         <div className="flex flex-row">
           <Link

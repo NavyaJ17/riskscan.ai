@@ -3,6 +3,7 @@ import React, { useContext, useRef, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { ClipLoader } from "react-spinners";
 import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 
 function Dashboard() {
   const url = useRef();
@@ -36,6 +37,7 @@ function Dashboard() {
   return (
     <div>
       <Navbar />
+      <Sidebar />
       <div className="mx-10 max-w-screen bg-gray-950">
         <form className="flex flex-row gap-2" onSubmit={handleSubmit}>
           <div

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
 
 export const AppContext = createContext();
 
@@ -14,6 +15,7 @@ export const AppContextProvider = (props) => {
     const refreshAccessToken = async () => {
       try {
         const res = await axios.post("/api/refresh");
+        console.log(res.data);
         setIsLoggedIn(true);
         setUserData(res.data.user);
         setAccessToken(res.data.accessToken);
