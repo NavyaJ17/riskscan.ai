@@ -10,15 +10,15 @@ const predictionSchema = new mongoose.Schema({
     trim: true,
   },
   alertname: {
-    type: String,
+    type: [String],
     trim: true,
   },
   desc: {
-    type: String,
+    type: [String],
     trim: true,
   },
   solution: {
-    type: String,
+    type: [String],
     trim: true,
   },
   risk_category: {

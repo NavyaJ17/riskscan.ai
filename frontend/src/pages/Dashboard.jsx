@@ -4,11 +4,14 @@ import { AppContext } from "../context/AppContext";
 import { ClipLoader } from "react-spinners";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Dashboard() {
   const url = useRef();
   const [loading, setLoading] = useState(false);
   const { accessToken } = useContext(AppContext);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,10 +29,11 @@ function Dashboard() {
           },
         }
       );
-      console.log(res.data);
       setLoading(false);
+      navigate(`/${res.data.scanId}`);
     } catch (error) {
       console.log(error);
+      toast.error(error.response.data.message);
       setLoading(false);
     }
   };

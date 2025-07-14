@@ -70,11 +70,10 @@ function Navbar() {
           riskscan.ai
         </div>
       </Link>
-      {console.log(userData)}
       {isLoggedIn ? (
         <div ref={dropDownRef} className="relative ">
           <div
-            className="w-10 h-10 bg-gray-700 font-medium rounded-full p-4 flex items-center justify-center text-white cursor-pointer hover:bg-gray-600"
+            className="w-10 h-10 bg-gray-700 font-medium rounded-full p-4 flex items-center justify-center text-white cursor-pointer hover:bg-gray-600 capitalize"
             onClick={toggleDropdown}
           >
             {userData.firstName[0]}
@@ -100,7 +99,7 @@ function Navbar() {
               </p>
             </div>
             <div className="w-full mt-4 flex flex-col gap-2">
-              <Link to={`/${userData._id}`}>
+              <Link to={`/new`}>
                 <button className="w-full bg-white/5 border border-white/15 text-white text-sm font-semibold py-2 px-4 rounded-full cursor-pointer hover:bg-white/10 disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed">
                   New Scan
                 </button>

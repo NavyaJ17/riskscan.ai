@@ -25,9 +25,34 @@ export const getPrediction = async (req, res, next) => {
     });
     await user.save();
 
+    const scanId = user.history[user.history.length - 1]._id;
+
     return res.status(200).json({
       success: true,
-      stats,
+      scanId,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getScanData = async (req, res, next) => {
+  const { scanId } = req.params;
+  try {
+    const user = await userModel.findOne({ "history._id": scanId });
+
+    if (!user) {
+      return next({ status: 404, message: "Scan not found." });
+    }
+
+    const prediction = user.history.id(scanId);
+
+    if (!prediction) {
+      return next({ status: 404, message: "Scan result not found." });
+    }
+
+    return res.status(200).json({
+      success: true,
       prediction,
     });
   } catch (error) {

@@ -2,10 +2,10 @@ import pandas as pd
 import numpy as np
 
 def engineer_features(df):
-    idx = df.groupby(['endpoint', 'method'])['riskcode'].idxmax()
-
-    max_risk_alerts = df.loc[idx, ['endpoint', 'method', 'riskcode', 'alertname', 'desc', 'solution']]
-    max_risk_alerts.reset_index(drop=True, inplace=True)
+    
+    alert_names = df.groupby(['endpoint', 'method'])['alertname'].apply(lambda x: list(set(x))).reset_index()
+    descs = df.groupby(['endpoint', 'method'])['desc'].apply(lambda x: list(set(x))).reset_index()
+    solutions = df.groupby(['endpoint', 'method'])['solution'].apply(lambda x: list(set(x))).reset_index()
 
     agg = df.groupby(['endpoint', 'method']).agg({
         'riskcode': ['sum', 'max', 'count'],
@@ -17,7 +17,9 @@ def engineer_features(df):
     weighted = df.groupby(['endpoint', 'method'])['weighted_risk'].sum().reset_index()
     agg = agg.merge(weighted, on=['endpoint', 'method'])
 
-    agg = agg.merge(max_risk_alerts, on=['endpoint', 'method'], how='left')
+    agg = agg.merge(alert_names, on=['endpoint', 'method'], how='left')
+    agg = agg.merge(descs, on=['endpoint', 'method'], how='left')
+    agg = agg.merge(solutions, on=['endpoint', 'method'], how='left')
 
     riskcode_counts = df.pivot_table(index=['endpoint', 'method'], columns='riskcode',
                                      values='pluginid', aggfunc='count', fill_value=0)

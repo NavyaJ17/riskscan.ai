@@ -15,12 +15,10 @@ export const AppContextProvider = (props) => {
     const refreshAccessToken = async () => {
       try {
         const res = await axios.post("/api/refresh");
-        console.log(res.data);
         setIsLoggedIn(true);
         setUserData(res.data.user);
         setAccessToken(res.data.accessToken);
       } catch (error) {
-        console.log(error);
         setIsLoggedIn(false);
         setUserData(null);
         setAccessToken(null);

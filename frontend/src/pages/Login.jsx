@@ -44,7 +44,7 @@ function Login() {
       setAccessToken(res.data.accessToken);
       toast.success("Logged in successfully!");
       setLoading(false);
-      navigate(`/${res.data.user._id}`);
+      navigate(`/new`);
     } catch (error) {
       toast.error(error.response.data.message);
       setLoading(false);
