@@ -2,12 +2,15 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { AppContext } from "../context/AppContext";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 function Sidebar() {
-  const { accessToken } = useContext(AppContext);
+  const { setIsLoggedIn, userData, setUserData, accessToken, setAccessToken } =
+    useContext(AppContext);
   const [data, setData] = useState(null);
   const { scanId } = useParams();
+  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState();
 
   useEffect(() => {
     const getHistory = async () => {
@@ -26,6 +29,19 @@ function Sidebar() {
 
     getHistory();
   }, []);
+
+  async function logout() {
+    try {
+      const res = await axios.post("api/logout");
+      setIsLoggedIn(false);
+      setUserData(null);
+      setAccessToken(null);
+      navigate("/");
+      toast.success("Logged out successfully.");
+    } catch (error) {
+      toast.error(error.data.message);
+    }
+  }
 
   const timeSince = (dateString) => {
     const now = new Date();
@@ -50,22 +66,49 @@ function Sidebar() {
     return "just now";
   };
 
+  function toggleSidebar() {
+    setIsOpen(!isOpen);
+  }
+
   return (
-    <div className="fixed left-0 top-16 pb-22 w-2xs h-full bg-gray-950 outline outline-white/10 overflow-y-scroll">
-      <div className="flex flex-col gap-8">
-        <div className="p-6 pt-8">
-          <Link to={`/new`}>
-            <button className=" bg-white/5 border border-white/15 text-white text-sm font-semibold py-2 px-4 rounded-full cursor-pointer hover:bg-white/10 disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed flex items-center gap-2">
-              <i className="bi bi-plus text-xl"></i>
-              <span className="flex-1">New Scan</span>
-            </button>
+    <div
+      className={`fixed left-0 top-16 lg:pb-22 w-screen lg:w-2xs bg-gray-950 outline outline-white/10 overflow-scroll lg:h-full
+    ${isOpen ? "h-full" : "h-auto"}`}
+    >
+      <div className="flex lg:hidden flex-row h-14 px-4 items-center border-b border-b-white/10">
+        <i
+          className="bi bi-list text-base text-white"
+          onClick={toggleSidebar}
+        ></i>
+        <div className="ml-4 text-sm/6 flex flex-row items-center gap-3">
+          <p className="text-gray-400">{userData.firstName}</p>
+          <i className="bi bi-chevron-right text-gray-400 text-xs"></i>
+          <p className="text-white">new</p>
+        </div>
+      </div>
+      <div
+        className={`flex-col gap-4 lg:flex
+        ${isOpen ? "flex" : "hidden"}
+        `}
+      >
+        <div className="p-6 pt-8 flex flex-col gap-2">
+          <Link to={`/new`} className="flex items-center gap-3">
+            <i className="bi bi-plus-lg text-gray-400"></i>
+            <span className="flex-1 text-gray-300 font-semibold hover:underline hover:text-white">
+              New Scan
+            </span>
           </Link>
+          <div className="flex items-center gap-3" onClick={logout}>
+            <i className="bi bi-box-arrow-left text-gray-400"></i>
+            <span className="flex-1 text-gray-300 font-semibold hover:underline cursor-pointer hover:text-white">
+              Logout
+            </span>
+          </div>
         </div>
-        <div className="flex flex-row gap-3 px-6">
-          <i className="bi bi-clock-history text-white"></i>
-          <h1 className="text-white font-medium font-outfit">History</h1>
+        <div className="flex flex-row gap-2 px-6">
+          <h1 className="text-gray-400 font-semibold ">History</h1>
         </div>
-        <div className="flex flex-col gap-2 font-semibold">
+        <div className="flex flex-col gap-2 font-semibold overflow-scroll">
           {data &&
             data.history
               .slice()
@@ -74,7 +117,7 @@ function Sidebar() {
                 return (
                   <Link to={`/${item._id}`} key={item._id}>
                     <div
-                      className={`group text-white flex flex-col gap-3 px-6 py-3 border-l-2 border-transparent
+                      className={`group overflow-scroll text-white flex flex-col gap-3 px-6 py-3 border-l-2 border-transparent
                       ${
                         scanId === item._id
                           ? "border-l-2 border-l-white"
@@ -83,7 +126,7 @@ function Sidebar() {
                     >
                       <div className="flex flex-col">
                         <div
-                          className={`text-xs uppercase whitespace-nowrap overflow-hidden text-ellipsis max-w-48 flex-1 group-hover:text-blue-500 tracking-widest
+                          className={`text-sm uppercase whitespace-nowrap overflow-hidden text-ellipsis lg:max-w-48 flex-1 group-hover:text-blue-500 tracking-widest
                            ${
                              scanId === item._id
                                ? "text-blue-500"
@@ -97,7 +140,7 @@ function Sidebar() {
                         </div>
                       </div>
                       <div
-                        className={`text-xs pl-6 border-l-1 border-l-white/10 flex flex-col gap-1 group-hover:text-gray-400
+                        className={`text-sm pl-6 border-l-1 border-l-white/10 flex flex-col gap-1 group-hover:text-gray-400
                         ${
                           scanId === item._id
                             ? "text-gray-400"
@@ -107,10 +150,10 @@ function Sidebar() {
                         <div> Endpoints : {item.total_endpoints}</div>
                         <div>
                           {" "}
-                          Average Risk Score : {item.mean_risk_score.toFixed(2)}
+                          Avg. Risk Score : {item.mean_risk_score.toFixed(2)}
                         </div>
                         <div>
-                          Average Risk Category : {item.average_risk_category}
+                          Avg. Risk Category : {item.average_risk_category}
                         </div>
                       </div>
                     </div>

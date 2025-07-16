@@ -100,15 +100,17 @@ function Navbar() {
             </div>
             <div className="w-full mt-4 flex flex-col gap-2">
               <Link to={`/new`}>
-                <button className="w-full bg-white/5 border border-white/15 text-white text-sm font-semibold py-2 px-4 rounded-full cursor-pointer hover:bg-white/10 disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed">
+                <button className="w-full bg-white/5 border border-white/15 text-white text-sm font-semibold py-2 px-4 rounded-full cursor-pointer hover:bg-white/10 disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                  <i className="bi bi-plus-lg"></i>
                   New Scan
                 </button>
               </Link>
               <button
                 onClick={handleClick}
-                className="bg-gray-700 w-full text-white text-sm font-semibold py-2 px-4 rounded-full cursor-pointer hover:bg-gray-600 disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed"
+                className="bg-red-700 w-full text-white text-sm font-semibold py-2 px-4 rounded-full cursor-pointer hover:bg-red-600 disabled:bg-gray-800 disabled:text-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-3"
                 disabled={loading}
               >
+                <i className="bi bi-box-arrow-left"></i>
                 {loading ? <ClipLoader color="white" size={15} /> : "Logout"}
               </button>
             </div>
